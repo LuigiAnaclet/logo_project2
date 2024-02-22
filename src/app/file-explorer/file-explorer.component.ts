@@ -1,15 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-file-explorer',
-  templateUrl: './file-explorer.component.html',
+  template: `
+    <mat-card>
+      <h3>Files</h3>
+      <!-- File list will be displayed here -->
+    </mat-card>
+  `,
   styleUrls: ['./file-explorer.component.css']
 })
-export class FileExplorerComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-}
+export class FileExplorerComponent {}

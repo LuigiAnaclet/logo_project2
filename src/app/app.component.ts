@@ -1,12 +1,15 @@
-import { Component, ViewChild } from '@angular/core';
-import { MatSidenav } from '@angular/material/sidenav';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
+  template: `
+    <div class="app-container">
+      <app-console></app-console>
+      <app-turtle-display></app-turtle-display>
+      <app-file-explorer></app-file-explorer>
+      <app-chat></app-chat>
+    </div>
+  `,
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'logo';
-  @ViewChild(MatSidenav) sidenav!: MatSidenav;
-}
+export class AppComponent {}

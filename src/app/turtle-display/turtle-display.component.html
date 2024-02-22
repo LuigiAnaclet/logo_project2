@@ -1,1 +1,11 @@
-<p>turtle-display works!</p>
+<div class="turtle-display-container">
+    <svg width="400" height="400">
+      <!-- Path representing the turtle's movement -->
+      <path [attr.d]="pathData" fill="none" [attr.stroke]="pathStrokeColor"></path>
+      
+      <!-- Representation of the turtle -->
+      <polygon *ngIf="showTurtle" [attr.points]="getTrianglePoints()" [attr.transform]="'rotate(' + turtleAngle + ',' + turtlePosition.x + ',' + turtlePosition.y + ')'" [attr.fill]="pathFillColor" [attr.stroke]="pathStrokeColor" 
+           style="fill:lime; stroke:purple; stroke-width:1" />  
+    </svg>
+  </div>
+  

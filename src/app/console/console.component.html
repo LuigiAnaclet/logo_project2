@@ -1,1 +1,10 @@
-<p>console works!</p>
+<div class="console-container">
+    <textarea [(ngModel)]="code" class="console-input" placeholder="Enter your Logo commands here..."></textarea>
+    <button (click)="executeCode()">Execute</button>
+    <button (click)="saveCodeToFile()">Save to File</button>
+    <input type="file" #fileInput (change)="readFile(fileInput.files)" accept=".txt">
+    <div class="console-output">
+      {{ output }}
+    </div>
+  </div>
+  

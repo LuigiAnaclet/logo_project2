@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { LogoInterpreterService } from 'src/services/logo-interpreter.service';
-import { TurtleCommandsService } from 'src/services/turtle-commands.service';
+import { LogoInterpreterService } from 'src/app/services/logo-interpreter.service';
+import { TurtleCommandsService } from 'src/app/services/turtle-commands.service';
+import { FileService } from '../services/file.service';
 
 @Component({
   selector: 'app-console',
@@ -11,24 +12,51 @@ export class ConsoleComponent {
   code: string = '';
   output: string = '';
 
-  constructor(private turtleService: TurtleCommandsService) {}
+  constructor(private turtleService: TurtleCommandsService,private logoInterpreterService: LogoInterpreterService,private fileService: FileService) {}
 
   executeCode() {
-    // Split commands by a space followed by a capital letter (indicative of a new command)
-    const commandsArray = this.code.split(/ (?=[A-Z])/);
+    // This regex matches individual commands or REPETE blocks as single elements.
+    const commandRegex = /(?:REPETE \d+ \[.*?\])|[A-Z]+\s+[^[\]]+(?=\s+[A-Z]|$)/g;
+    const commandsArray = this.code.match(commandRegex);
+    if (!commandsArray) {
+      this.output += 'No commands found or incorrect command format.\n';
+      return;
+    }
+  
     for (let cmd of commandsArray) {
-        try {
-            if (cmd.trim().toUpperCase() === "VT") {
-                this.code = ''; // Clears the console input
-                this.output = ''; // Clears the previous output
-                continue; // Skips to the next command
-            }
-            const [result, command] = LogoInterpreterService.execute(cmd);
-            this.output += result + '\n';
-            this.turtleService.emitCommand(command);
-        } catch (error) {
-            this.output += (error as Error).message + '\n';
+      try {
+        if (cmd.toUpperCase().startsWith('POUR')) {
+            this.logoInterpreterService.defineProcedure(this.code);
+            this.output += 'Procedure defined.\n';
+            break;
+          }
+        else if (cmd.trim().toUpperCase() === "VT") {
+          this.code = '';
+          this.output = '';
+          continue;
         }
+        const result = this.logoInterpreterService.execute(cmd);
+        this.output += result + '\n'; // Make sure execute() returns a string
+      } catch (error) {
+        this.output += (error as Error).message + '\n';
+      }
     }
   }
+
+  saveCodeToFile() {
+    const filename = 'my-logo-code.txt';
+    this.fileService.saveToFile(this.code, filename);
+  }
+  
+  readFile(fileList: FileList | null) {
+    if (fileList && fileList.length > 0) {
+      const file = fileList[0];
+      this.fileService.readFromFile(file).then(content => {
+        this.code = content;
+      }).catch(error => {
+        console.error('Error reading file:', error);
+      });
+    }
+  }
+  
 }
