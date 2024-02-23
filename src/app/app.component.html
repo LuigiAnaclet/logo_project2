@@ -1,1 +1,13 @@
 <router-outlet></router-outlet>
+<div *ngIf="!authService.isLoggedIn()">
+    <button routerLink="/login">Login</button>
+    <button routerLink="/register">Register</button>
+  </div>
+  <div *ngIf="authService.isLoggedIn()">
+    <button (click)="authService.logout()">Logout</button>
+  </div>
+      <div class="app-container">
+        <app-console></app-console>
+        <app-turtle-display></app-turtle-display>
+      </div>
+    

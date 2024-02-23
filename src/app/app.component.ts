@@ -1,15 +1,14 @@
 import { Component } from '@angular/core';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
-  template: `
-    <div class="app-container">
-      <app-console></app-console>
-      <app-turtle-display></app-turtle-display>
-      <app-file-explorer></app-file-explorer>
-      <app-chat></app-chat>
-    </div>
-  `,
+  templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {}
+export class AppComponent {
+  constructor(public authService: AuthService) {
+
+
+  }
+}

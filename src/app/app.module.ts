@@ -19,6 +19,8 @@ import { MatCardModule } from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
+import { HttpClientModule } from '@angular/common/http';
+import { CreateClassComponent } from './create-class/create-class.component';
 
 @NgModule({
   declarations: [
@@ -29,10 +31,12 @@ import { LoginComponent } from './login/login.component';
     FileExplorerComponent,
     ChatComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    CreateClassComponent
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatSidenavModule,
@@ -41,7 +45,8 @@ import { LoginComponent } from './login/login.component';
     MatIconModule,
     MatListModule, 
     MatCardModule,
-    FormsModule
+    FormsModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

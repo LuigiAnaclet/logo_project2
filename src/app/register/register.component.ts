@@ -1,29 +1,34 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css'],
+  styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
-  user = {
-    email: '',
-    password: '',
-    fullName: '', // Add more fields as required
-  };
+  email: string = '';
+  password: string = '';
+  fullName: string = '';
+  errorMessage: string = '';
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) { }
 
-  register(): void {
-    this.authService.register(this.user).subscribe(
-      (response) => {
-        console.log('Registration successful', response);
-        // Redirect to login or another page
-      },
-      (error) => {
-        console.error('Registration failed', error);
-      }
-    );
+  register() {
+    if (!this.email || !this.password || !this.fullName) {
+      this.errorMessage = 'All fields are required.';
+      return;
+    }
+
+    this.authService.register(this.email, this.password, this.fullName)
+      .subscribe(success => {
+        if (success) {
+          this.authService.saveToken(success.token);
+          this.router.navigate(['/']);
+        }
+      }, err => {
+        this.errorMessage = err.error.message || 'Registration failed.';
+      });
   }
 }
