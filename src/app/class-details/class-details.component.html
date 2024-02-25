@@ -1,0 +1,25 @@
+<!-- Class Details -->
+<div *ngIf="classDetails?.classDetails">
+  <h2>{{ classDetails.classDetails?.ClassName }}</h2>
+  
+  <div *ngIf="isTeacher">
+    <p>Link: {{ classDetails.classDetails?.ClassLink }}</p>
+    <p>Password: {{ classDetails.classDetails?.ClassPassword }}</p>
+
+    <!-- Student List -->
+    <h3>Members :</h3>
+    <ul>
+      <li *ngFor="let member of classDetails?.members">
+        {{ member.fullName }} ({{ member.email }}) ({{ member.role }}) 
+        <button *ngIf="isTeacher && member.role === 'student'" (click)="promoteToCoTeacher(member.UserId, classDetails.classDetails.ClassId)">Promote to Co-Teacher</button>
+      </li>
+    </ul>
+  </div>
+  <h3>Chat :</h3>
+  <app-chat [classId]="classId"></app-chat>
+  
+</div>
+
+<div *ngIf="!classDetails">
+  <p>Loading class details...</p>
+</div>

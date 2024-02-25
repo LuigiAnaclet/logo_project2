@@ -1,1 +1,13 @@
-<p>chat works!</p>
+<div class="chat-container">
+    <ul class="messages-list">
+      <li *ngFor="let message of messages">
+        <span>{{ message.fullName }} :</span> {{ message.content }} ({{ message.Timestamp }})
+        <button *ngIf="isTeacher" (click)="deleteMessage(message.messageId)">Delete</button>
+      </li>
+    </ul>
+    <div class="message-input">
+      <input type="text" [(ngModel)]="newMessage" placeholder="Type a message...">
+      <button (click)="sendMessage()">Send</button>
+    </div>
+  </div>
+  

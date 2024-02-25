@@ -1,0 +1,10 @@
+<div class="dashboard">
+    <h2>Mes Classes</h2>
+    <ul>
+      <li *ngFor="let class of classes">
+        <a [routerLink]="['/class-details', class?.id]">{{ class.name }}</a>
+      </li>
+    </ul>
+  </div>
+  <app-join-class></app-join-class>
+  

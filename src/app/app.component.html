@@ -9,5 +9,8 @@
       <div class="app-container">
         <app-console></app-console>
         <app-turtle-display></app-turtle-display>
+        <div *ngIf="authService.isLoggedIn()">
+          <button routerLink="/create-class">Create a new class</button>
+        <app-dashboard></app-dashboard></div>
       </div>
     

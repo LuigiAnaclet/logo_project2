@@ -1,0 +1,10 @@
+<div>
+    <h2>Join a Class</h2>
+    <form (ngSubmit)="joinClass()">
+      <input type="text" [(ngModel)]="classLink" name="classLink" placeholder="Class Link" required />
+      <input type="password" [(ngModel)]="classPassword" name="classPassword" placeholder="Password" required />
+      <button type="submit">Join Class</button>
+    </form>
+    <p *ngIf="errorMessage">{{ errorMessage }}</p>
+  </div>
+  

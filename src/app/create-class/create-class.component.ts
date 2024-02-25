@@ -1,5 +1,8 @@
+// create-class.component.ts
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { ClassService } from '../services/class.service';
+import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-class',
@@ -10,23 +13,31 @@ export class CreateClassComponent {
   className: string = '';
   classLink: string = '';
   classPassword: string = '';
-  classCreated: boolean = false;
+  message: string = '';
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private classService: ClassService,
+    private authService: AuthService, private router: Router
+  ) {}
 
   createClass() {
-    // Call the /create-class endpoint with the class name
-    this.http.post('/api/create-class', { className: this.className })
-      .subscribe(
-        (response: any) => {
-          // Set the link and password from the response
-          this.classLink = response.link;
-          this.classPassword = response.password;
-          this.classCreated = true;
-        },
-        (error) => {
-          console.error('Error creating class:', error);
-        }
-      );
+    const token = this.authService.getToken(); // Get the token from AuthService
+    if (!token) {
+      console.error('Authentication token not found');
+      return;
+    }
+
+    this.classService.createClass(this.className, token).subscribe(
+      data => {
+        console.log('Class created successfully', data);
+        this.classLink = data.classDetails.link;
+        this.classPassword = data.classDetails.password;
+        this.message = data.message;
+        this.router.navigate(['/']);
+      },
+      error => {
+        console.error('Error creating class', error);
+      }
+    );
   }
 }

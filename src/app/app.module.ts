@@ -4,9 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ConsoleComponent } from './console/console.component';
-import { ScriptEditorComponent } from './script-editor/script-editor.component';
 import { TurtleDisplayComponent } from './turtle-display/turtle-display.component';
-import { FileExplorerComponent } from './file-explorer/file-explorer.component';
 import { ChatComponent } from './chat/chat.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -21,18 +19,23 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CreateClassComponent } from './create-class/create-class.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { ClassDetailsComponent } from './class-details/class-details.component';
+import { JoinClassComponent } from './join-class/join-class.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
     AppComponent,
     ConsoleComponent,
-    ScriptEditorComponent,
     TurtleDisplayComponent,
-    FileExplorerComponent,
     ChatComponent,
     RegisterComponent,
     LoginComponent,
-    CreateClassComponent
+    CreateClassComponent,
+    DashboardComponent,
+    ClassDetailsComponent,
+    JoinClassComponent
   ],
   imports: [
     BrowserModule,

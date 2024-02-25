@@ -1,16 +1,15 @@
 <div class="create-class-container">
-    <form (ngSubmit)="createClass()">
-      <div class="form-group">
-        <label for="className">Class Name:</label>
-        <input type="text" id="className" [(ngModel)]="className" name="className" required>
-      </div>
-      
-      <button type="submit">Create Class</button>
-    </form>
-  
-    
-    <div *ngIf="classCreated">
-      <p>Class Link: {{ classLink }}</p>
-      <p>Class Password: {{ classPassword }}</p>
-    </div>
+  <form (ngSubmit)="createClass()">
+    <label for="className">Class Name:</label>
+    <input type="text" id="className" [(ngModel)]="className" name="className" required>
+    <button type="submit">Create Class</button>
+  </form>
+
+  <div *ngIf="classLink && classPassword">
+    <p>Class created successfully!</p>
+    <p>Class Link: {{ classLink }}</p>
+    <p>Class Password: {{ classPassword }}</p>
   </div>
+
+  <p *ngIf="message">{{ message }}</p>
+</div>

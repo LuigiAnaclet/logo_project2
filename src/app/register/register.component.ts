@@ -24,7 +24,7 @@ export class RegisterComponent {
     this.authService.register(this.email, this.password, this.fullName)
       .subscribe(success => {
         if (success) {
-          this.authService.saveToken(success.token);
+          this.authService.saveToken(success.accessToken);
           this.router.navigate(['/']);
         }
       }, err => {
